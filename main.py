@@ -91,7 +91,7 @@ def sort_data(data: List[Dict[str, Any]], order_by: str):
         value = row[column]
         return float(value) if is_numeric(value) else value
 
-    reverse = (order == 'desc')
+    reverse = order == 'desc'
     return sorted(data, key=sort_key, reverse=reverse)
 
 
