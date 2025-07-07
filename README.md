@@ -1,4 +1,5 @@
 [![Flake8](https://github.com/py-cyber/csv_processor/actions/workflows/flake8.yml/badge.svg)](https://github.com/py-cyber/csv_processor/actions)
+[![Black](https://github.com/py-cyber/csv_processor/actions/workflows/black.yml/badge.svg)](https://github.com/py-cyber/csv_processor/actions/workflows/black.yml)
 
 ## Установка проекта:
 Для установки проекта вы можете прописать следующую команду в терминал:
