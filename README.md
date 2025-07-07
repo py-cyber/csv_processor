@@ -36,7 +36,7 @@ cp -r template.csv .csv
 ```
 ## Тестироварние
 ```bash
-pytest tests.py -v
+python -m pytest tests/tests.py -v
 ```
 ## Запуск скрипта
 ```bash

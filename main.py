@@ -1,19 +1,17 @@
 import argparse
 import csv
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, List
 
 from tabulate import tabulate
 
 
-def read_csv(file_path: str) -> List[Dict[str, Any]]:
+def read_csv(file_path: str):
     with open(file_path, 'r') as file:
         reader = csv.DictReader(file)
         return [row for row in reader]
 
 
-def filter_data(
-    data: List[Dict[str, Any]], condition: str
-) -> List[Dict[str, Any]]:
+def filter_data(data: List[Dict[str, Any]], condition: str):
     if not condition:
         return data
 
@@ -35,7 +33,7 @@ def filter_data(
     return filtered_rows
 
 
-def parse_condition(condition: str) -> tuple[str, str, str]:
+def parse_condition(condition: str):
     operators = ['>', '<', '=']
     for op in operators:
         if op in condition:
@@ -45,7 +43,7 @@ def parse_condition(condition: str) -> tuple[str, str, str]:
     raise ValueError(f'Invalid condition format: {condition}')
 
 
-def is_numeric(value: str) -> bool:
+def is_numeric(value: str):
     try:
         float(value)
         return True
@@ -53,9 +51,7 @@ def is_numeric(value: str) -> bool:
         return False
 
 
-def aggregate_data(
-    data: List[Dict[str, Any]], aggregate: str
-) -> List[Optional[Dict[str, Union[float, str]]]]:
+def aggregate_data(data: List[Dict[str, Any]], aggregate: str):
     if not aggregate:
         return None
 
@@ -82,19 +78,20 @@ def aggregate_data(
     return [{'column': column, operation: result}]
 
 
-def sort_data(
-    data: List[Dict[str, Any]], order_by: str
-) -> List[Dict[str, Any]]:
+def sort_data(data: List[Dict[str, Any]], order_by: str):
     if not order_by:
         return data
 
     column, order = order_by.split('=')
 
+    if order not in ['desc', 'asc', '']:
+        raise ValueError(f'Unknown order value: {order}')
+
     def sort_key(row):
         value = row[column]
         return float(value) if is_numeric(value) else value
 
-    reverse = order == 'desc'
+    reverse = (order == 'desc')
     return sorted(data, key=sort_key, reverse=reverse)
 
 

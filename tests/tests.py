@@ -1,3 +1,7 @@
+import os
+from pathlib import Path
+import sys
+
 from main import (
     aggregate_data,
     filter_data,
@@ -8,17 +12,17 @@ from main import (
 import pytest
 
 
+sys.path.append(str(Path(__file__).parent.parent))
+
+
 @pytest.fixture
-def sample_csv(tmp_path):
-    csv_data = """name,brand,price,rating
-iphone 15 pro,apple,999,4.9
-galaxy s23 ultra,samsung,1199,4.8
-redmi note 12,xiaomi,199,4.6
-poco x5 pro,xiaomi,299,4.4"""
-    file_path = tmp_path / 'test.csv'
-    with open(file_path, 'w') as f:
-        f.write(csv_data)
-    return file_path
+def sample_csv():
+    csv_file = 'tests/test.csv'
+
+    if not os.path.exists(csv_file):
+        pytest.skip(f'Файл {csv_file} не найден. Тесты пропущены.')
+
+    return csv_file
 
 
 def test_read_csv(sample_csv):
